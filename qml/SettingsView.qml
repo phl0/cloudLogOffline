@@ -32,7 +32,7 @@ Page {
         settings.cloudLogSSL       = cloudLogSSL.currentText;
         settings.cloudLogSSLIndex  = cloudLogSSL.currentIndex;
         settings.cloudLogKey       = cloudLogKey.text;
-        settings.cloudLogStationId = cloudLogStationId.text;
+        settings.cloudLogStationId = cloudLogStationId.value;
         settings.cloudLogActive    = cloudLogSwitch.checked;
 
         settings.qrzUser   = qrzUser.text;
@@ -329,8 +329,8 @@ Page {
                 id: cloudLogSSL
                 Layout.fillWidth: true
                 model: [
-                    "http",
-                    "https"
+                    "HTTP",
+                    "HTTPS"
                 ]
 
                 Component.onCompleted: {
@@ -359,20 +359,23 @@ Page {
                 onEditingFinished: saveSettings();
             }
 
+
             Label {
                 id: cloudLogStationIdLabel
                 text: qsTr("Station ID") + ":"
                 visible: cloudLogSwitch.checked
             }
 
-            TextField {
+            SpinBox{
                 id: cloudLogStationId
-                Layout.fillWidth: true
+                from: 1
+                to: 999
+                editable: true
                 visible: cloudLogSwitch.checked
-                text: settings.cloudLogStationId
-                onTextEdited: saveSettings()
-                onEditingFinished: saveSettings();
+                value: settings.cloudLogStationId
+                onValueModified: saveSettings();
             }
+
 
             // ----------------
 
